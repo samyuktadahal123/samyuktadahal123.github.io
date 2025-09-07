@@ -1,4 +1,3 @@
-Hello World!
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,25 +5,27 @@ Hello World!
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samyukta's Portfolio</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripts/script.js"></script>
 </head>
-<body>
-    <h1>Samyukta Dahal's Javascript Portfolio</h1>
+<body id = "body_webpage">
+    <h1 id="title">Samyukta Dahal's Javascript Portfolio</h1>
 
     <img src="sam.jpg" alt="Sam's Pic" width="250px" height="300px">
-    <p> Hi there! My name is Samyukta Dahal. I'm an international student studying Computer Science as a major at Weber State University. I'm basically a beginner with very less or basic knowledge in computer science. This is my 3rd semester. I always had a strong interest in learning coding and networking since childhood. That's the reason i'm studying this major now. My goal for this class is to learn something new and become more familiar with programming languages.</p>
+    <p id="paragraph_description"> Hi there! My name is Samyukta Dahal. I'm an international student studying Computer Science as a major at Weber State University. I'm basically a beginner with very less or basic knowledge in computer science. This is my 3rd semester. I always had a strong interest in learning coding and networking since childhood. That's the reason i'm studying this major now. My goal for this class is to learn something new and become more familiar with programming languages.</p>
 
-    <section id="settings">
-        <h3>Website Settings</h3>
-        <p>Current Mode: <span id="Current-mode">Default</span></p>
-        <button onclick="setTheme('default')">Default Mode</button>
-        <button onclick="setTheme('Light')">Light Mode</button>"
-        <button onclick="setTheme('dark')">Dark Mode</button>
-    </section>
+    
+    <div id="settings">
+        <h3 id="modes">Website Settings</h3>
+        <p id="current_m">Current Mode: Default</p>
+        <button onclick="setDefault()">Default Mode</button>
+        <button onclick="setLight()">Light Mode</button>
+        <button onclick="setDark()">Dark Mode</button>
+    </div>
 
-    <h3>Jacascript Demonstrations</h3>
-    <p>Stay tuned....</p>
+    <h3 id="demotitle">Jacascript Demonstrations</h3>
+    <p id="pass"> Stay tuned....</p>
 
-    <p>&copy;Copyright 2025 Samyukta Dahal. All rights reserved.</p>
+    <p id="last">&copy;Copyright 2025 Samyukta Dahal. All rights reserved.</p>
 
 </body>
 </html>
