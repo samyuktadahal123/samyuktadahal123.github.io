@@ -12,7 +12,7 @@ function setDark() {
   document.getElementById("current_m").innerHTML = "Current Settings: Dark";
   document.getElementById("body_webpage").style.backgroundColor = "black";
   document.getElementById("paragraph_description").style.color = "white";
-  document.getElementById("current_m").style.color = "#e0e4c1";
+  document.getElementById("current_m").style.color = "white";
   document.getElementById("title").style.color = "white";
   document.getElementById("modes").style.color = "white";
   document.getElementById("demotitle").style.color = "white";
