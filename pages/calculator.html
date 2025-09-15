@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Area and Volume Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="../scripts/geometry.js"></script>
+</head>
+<body>
+    <h1> Shape Area and Volume Calculator </h1>
+
+    <div class="perimeter">
+        <h3>Perimeter of a Rectangle</h3>
+        <img src="../pictures/Perimeter-of-a-Rectangle-Formula.png" alt="perimeterImage">
+        <label for="length">Enter the length:</label><input type="number" value="leng" id="leng" name="leng">
+        <label for="breadth">Enter the breadth:</label><input type="number" value="wid" id="wid" name="wid">
+        <button onclick="CalculatePerimeter()">Calculate</button>
+        <p id="perimeterResult">Perimeter: </p>
+    </div>
+
+    <div class="area">
+        <h3>Area of a Rectangle</h3>
+        <img src="../pictures/area-of-a-rectangle-formula-image.gif" alt="areaImage">
+        <label for="lengthA">Enter the length:</label><input type="number" value="lengthArea" id="lengthArea" name="lengthArea">
+        <label for="breadthA">Enter the breadth:</label><input type="number" value="widthArea" id="widthArea" name="widthArea">
+        <button onclick="CalculateArea()">Calculate</button>
+        <p id="areaResult">Area: </p>
+    </div>
+
+    <div class="volume">
+        <h3>Volume of a Cuboid</h3>
+        <img src="../pictures/volume-of-rectangular-prism-1-1621826835.png" alt="volumeImage">
+        <label for="lengthV">Enter the length:</label><input type="number" value="leng" id="lengthVolume" name="leng">
+        <label for="breadthV">Enter the breadth:</label><input type="number" value="widthVolume" id="widthVolume" name="widthVolume">
+        <label for="heightV">Enter the breadth:</label><input type="number" value="heightVolume" id="heightVolume" name="heightVolume">
+        <button onclick="CalculateVolume()">Calculate</button>
+        <p id="volumeResult">Volume: </p>
+    </div>
+</body>
+</html>

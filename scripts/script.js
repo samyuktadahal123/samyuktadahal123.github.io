@@ -8,7 +8,7 @@
 //     setTheme('default');
 // };
 
-function setDark() {
+function setDark(){
   document.getElementById("current_m").innerHTML = "Current Settings: Dark";
   document.getElementById("body_webpage").style.backgroundColor = "black";
   document.getElementById("paragraph_description").style.color = "white";
@@ -20,7 +20,7 @@ function setDark() {
   document.getElementById("last").style.color = "white";
 }
       
-function setLight() {
+function setLight(){
   document.getElementById("current_m").innerHTML = "Current Settings: Light";
   document.getElementById("current_m").style.color = "#000000";
   document.getElementById("body_webpage").style.backgroundColor = "#ffffff";
@@ -32,7 +32,7 @@ function setLight() {
   document.getElementById("last").style.color = "black";
 }
   
-function setDefault() {
+function setDefault(){
   document.getElementById("current_m").innerHTML = "Current Settings: Default";
   document.getElementById("current_m").style.color = "#000000";
   document.getElementById("body_webpage").style.backgroundColor = "white";
