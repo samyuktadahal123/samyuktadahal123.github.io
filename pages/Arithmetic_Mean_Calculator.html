@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Mean Calculator</title>
+    <style>
+        body {
+            background-color: grey;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        button {
+            margin-right: 5px;
+        }
+        #dataset, #mean {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Entry</h1>
+    <label for="value">Enter a value:</label>
+    <input type="text" id="value">
+    <button onclick="addNumber()">Add Value</button>
+    <button onclick="deleteNumber()">Remove Value</button>
+  
+    <div id="dataset">Current Dataset: ()</div>
+    <div id="mean">Current Mean: ()</div>  
+    
+    <script src="../scripts/Arithmetic_Mean_Calc.js"></script>
+</body>
+</html>
