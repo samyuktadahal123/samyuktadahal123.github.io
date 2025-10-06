@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Match</title>
+    <script src="../scripts/MemoryMatch.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+        .tile {
+            font-size: x-large;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            background-color: gray;
+            text-align: center;
+            color: black;
+            border: none;
+            border-radius: 6px;
+        }
+        td {
+            width: 65px;
+            height: 65px;
+        }
+        table {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Memory Match</h1>
+    <p><button onclick="resetBoard()">Reset Game</button></p>
+    <div id="gameBoard"></div>
+</body>
+</html>
