@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Minimalist Mastermind</title>
+
+  <!-- Basic styling to make inputs large and centered -->
+  <style>
+    input {
+      width: 2ch;
+      font-size: xxx-large;
+      text-align: center;
+    }
+    p {
+      font-size: xxx-large;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Minimalist Mastermind</h1>
+
+  <!-- Guess input area -->
+  <div id="guessArea">
+    <input type="text" id="slot1" maxlength="1" />
+    <input type="text" id="slot2" maxlength="1" />
+    <input type="text" id="slot3" maxlength="1" />
+    <input type="text" id="slot4" maxlength="1" />
+  </div>
+
+  <br />
+  <button id="guess" onclick="tryGuess()">Try Guess</button>
+  <br /><br />
+
+  <!-- Past guesses will appear here -->
+  <div id="pastGuesses"></div>
+
+  <script>
+    // Holds the secret 4-number code (numbers 1–6)
+    let code = [];
+
+    // Start a new game when the page loads
+    resetGame();
+
+    // ========================
+    // FUNCTION: resetGame()
+    // ========================
+    function resetGame() {
+      code = [];
+
+      // Generate a random 4-number code
+      for (let i = 0; i < 4; i++) {
+        code.push(Math.floor(Math.random() * 6) + 1);
+      }
+
+      // Clear previous guesses
+      document.getElementById("pastGuesses").innerHTML = "";
+
+      // Reset all input boxes to default
+      for (let i = 1; i <= 4; i++) {
+        const slot = document.getElementById("slot" + i);
+        slot.disabled = false;
+        slot.value = "";
+        slot.style.backgroundColor = "white";
+        slot.style.color = "black";
+      }
+
+      // Reset button text and action
+      const btn = document.getElementById("guess");
+      btn.innerHTML = "Try Guess";
+      btn.setAttribute("onclick", "tryGuess()");
+
+      // Show the secret code in console (for testing)
+      console.log("Secret:", code.join(""));
+    }
+
+    // ========================
+    // FUNCTION: clearSlots()
+    // ========================
+    function clearSlots() {
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById("slot" + i).value = "";
+      }
+    }
+
+    // ========================
+    // CLASS: RuleError
+    // Custom error for invalid input
+    // ========================
+    class RuleError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "Rule Error";
+      }
+    }
+
+    // ========================
+    // FUNCTION: checkInput()
+    // Validates one input value
+    // ========================
+    function checkInput(rawValue) {
+      try {
+        // Empty field?
+        if (rawValue.trim() === "") {
+          throw new RuleError("Slots must contain numbers only.");
+        }
+
+        // Convert to number
+        const n = parseInt(rawValue, 10);
+
+        // Not a number?
+        if (Number.isNaN(n)) {
+          throw new RuleError("Slots must contain numbers only.");
+        }
+
+        // Out of range?
+        if (n < 1 || n > 6) {
+          throw new RuleError("Only numbers between 1 and 6 are accepted.");
+        }
+
+        // All checks passed
+        return true;
+      } catch (error) {
+        // If it’s our custom error, show a friendly message
+        if (error instanceof RuleError) {
+          alert(error.message);
+          return false;
+        }
+
+        // Any unexpected error – let it appear in console for debugging
+        throw error;
+      }
+    }
+
+    // ========================
+    // FUNCTION: tryGuess()
+    // Handles user guesses
+    // ========================
+    function tryGuess() {
+      const guesses = [];
+
+      // Collect and validate all 4 inputs
+      for (let i = 1; i <= 4; i++) {
+        const field = document.getElementById("slot" + i);
+        const raw = field.value;
+
+        if (checkInput(raw)) {
+          guesses.push(parseInt(raw, 10));
+        } else {
+          // Stop immediately on invalid input
+          return;
+        }
+      }
+
+      // Only run the rest if we have 4 valid numbers
+      if (guesses.length === 4) {
+        let correctPosition = 0;
+        let correctColor = 0;
+
+        // Copy the code so we can safely modify it
+        const codeCopy = [...code];
+
+        // Step 1: Check for correct positions
+        for (let i = 0; i < 4; i++) {
+          if (guesses[i] === codeCopy[i]) {
+            correctPosition++;
+            codeCopy[i] = "-"; // mark as used
+          }
+        }
+
+        // Step 2: Check for correct colors (wrong position)
+        for (let i = 0; i < 4; i++) {
+          if (codeCopy.includes(guesses[i])) {
+            correctColor++;
+            codeCopy[codeCopy.indexOf(guesses[i])] = "-"; // mark as used
+          }
+        }
+
+        // Step 3: If all 4 are correct, player wins!
+        if (correctPosition === 4) {
+          for (let i = 1; i <= 4; i++) {
+            const slot = document.getElementById("slot" + i);
+            slot.disabled = true;
+            slot.style.backgroundColor = "lime";
+            slot.style.color = "green";
+          }
+
+          const btn = document.getElementById("guess");
+          btn.innerHTML = "Reset Game";
+          btn.setAttribute("onclick", "resetGame()");
+        } else {
+          // Show past guess with hints (black & white pieces)
+          let output = "<p>";
+
+          // Display guessed numbers
+          for (let i = 0; i < 4; i++) {
+            output += '<input disabled value="' + guesses[i] + '">';
+          }
+
+          // Add black pawns for exact matches
+          for (let i = 0; i < correctPosition; i++) output += "&#9823;";
+
+          // Add white pawns for color-only matches
+          for (let i = 0; i < correctColor; i++) output += "&#9817;";
+
+          // Show result at the top
+          const currentDisplay = document.getElementById("pastGuesses");
+          currentDisplay.innerHTML = output + "</p>" + currentDisplay.innerHTML;
+
+          // Clear input boxes for next try
+          clearSlots();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
