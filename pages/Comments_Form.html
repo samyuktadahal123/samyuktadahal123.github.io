@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Form</title>
+    <style>
+        /* Simple, clean look – easy to read */
+        body {
+            font-family: Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #4a90e2;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        textarea {
+            height: 70px;
+            resize: vertical;
+        }
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            min-height: 20px;
+            margin-top: 3px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #357abd;
+        }
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>Customer Feedback Form</h1>
+
+        <form id="myForm" novalidate>
+            <!-- Basic info with HTML validation -->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" required pattern="[A-Za-z\s]+"
+                   placeholder="e.g. Jane Doe">
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" required
+                   pattern="\d{3}-\d{3}-\d{4}" placeholder="123-456-7890">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required
+                   placeholder="jane@example.com">
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" required
+                      placeholder="What do you think?"></textarea>
+
+            <!-- Username & Password with live feedback -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" required
+                   pattern="[A-Za-z0-9_]{4,8}"
+                   placeholder="4–8 letters/numbers/_">
+            <div class="error" id="userError"></div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <div class="error" id="passError"></div>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+
+        <!-- Portfolio link (required by rubric) -->
+        <a href="https://samyuktadahal123.github.io" class="link" target="_blank">
+            See My Portfolio
+        </a>
+    </div>
+
+    <script>
+        // === Sanitize function (removes dangerous characters) ===
+        function clean(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        // === Username live check ===
+        document.getElementById("username").addEventListener("input", function() {
+            let val = this.value;
+            let msg = document.getElementById("userError");
+            if (!/^[A-Za-z0-9_]{4,8}$/.test(val)) {
+                msg.textContent = "Use 4–8 characters: letters, numbers, or _";
+            } else {
+                msg.textContent = "";
+            }
+        });
+
+        // === Password live check ===
+        document.getElementById("password").addEventListener("input", function() {
+            let pwd = this.value;
+            let user = document.getElementById("username").value;
+            let missing = [];
+
+            if (pwd.length < 8) missing.push("8+ characters");
+            if (!/[a-z]/.test(pwd)) missing.push("lowercase");
+            if (!/[A-Z]/.test(pwd)) missing.push("uppercase");
+            if (!/\d/.test(pwd)) missing.push("number");
+            if (!/[!@#$%&*()]/.test(pwd)) missing.push("symbol (!@#$%&*())");
+            if (user && pwd.includes(user)) missing.push("no username");
+
+            let msg = document.getElementById("passError");
+            if (missing.length > 0) {
+                msg.innerHTML = "<strong>Need:</strong> " + missing.join(", ");
+            } else {
+                msg.innerHTML = "<strong>Good!</strong> Password is strong";
+                msg.style.color = "green";
+            }
+        });
+
+        // === Submit: sanitize + store in variable + console.log ===
+        document.getElementById("myForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Collect and sanitize all data
+            let formData = {
+                name:     clean(document.getElementById("name").value),
+                phone:    clean(document.getElementById("phone").value),
+                email:    clean(document.getElementById("email").value),
+                message:  clean(document.getElementById("message").value),
+                username: clean(document.getElementById("username").value),
+                password: clean(document.getElementById("password").value)
+            };
+
+            // Rubric: Store in a variable
+            let savedData = formData;
+
+            // Rubric: Show in console
+            console.log("Sanitized data saved:", savedData);
+
+            alert("Thanks! Your feedback was sent.");
+            this.reset();
+            document.getElementById("userError").textContent = "";
+            document.getElementById("passError").textContent = "";
+            document.getElementById("passError").style.color = "red";
+        });
+    </script>
+</body>
+</html>
